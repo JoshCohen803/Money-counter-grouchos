@@ -42,22 +42,6 @@
       border-radius: 8px;
       font-size: 1em;
     }
-    button {
-      display: block;
-      width: 100%;
-      margin-top: 20px;
-      padding: 12px;
-      font-size: 1em;
-      background: #c41230;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #91071f;
-    }
     #total {
       margin-top: 24px;
       font-size: 1.6em;
@@ -84,12 +68,16 @@
       <label>$20 Bills: <input type="number" id="bill20" min="0" value="0"></label>
       <label>$50 Bills: <input type="number" id="bill50" min="0" value="0"></label>
       <label>$100 Bills: <input type="number" id="bill100" min="0" value="0"></label>
-      <button type="button" onclick="calculateTotal()">Calculate Total</button>
     </form>
     <div id="total">Total: $0.00</div>
   </div>
 
   <script>
+    const inputs = document.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => {
+      input.addEventListener('input', calculateTotal);
+    });
+
     function calculateTotal() {
       const get = id => parseInt(document.getElementById(id).value) || 0;
       let total = 0;
@@ -105,6 +93,9 @@
       total += get('bill100') * 100.00;
       document.getElementById('total').innerText = `Total: $${total.toFixed(2)}`;
     }
+
+    // Calculate once on page load
+    calculateTotal();
   </script>
 </body>
 </html>
