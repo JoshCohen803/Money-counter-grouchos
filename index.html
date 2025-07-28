@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Groucho's Money Calculator — easily calculate cash totals for coins and bills." />
   <title>Groucho's Money Calculator</title>
-  <link rel="icon" href="/favicon.png" type="image/png">
-  <link rel="apple-touch-icon" href="/favicon.png">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -56,7 +53,7 @@
       font-size: 1.6em;
       font-weight: bold;
       text-align: center;
-      color: #111;
+      color: #111; /* Black text */
     }
     .buttons {
       display: flex;
@@ -79,20 +76,8 @@
       color: #666;
       margin-top: 30px;
     }
-    @media (max-width: 600px) {
-      .container {
-        padding: 16px;
-      }
-      label {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      input[type="number"] {
-        width: 100%;
-        margin-top: 5px;
-      }
-    }
   </style>
+  <link rel="icon" href="/favicon.png" type="image/png">
 </head>
 <body>
   <div class="container">
@@ -146,7 +131,7 @@
     }
 
     inputs.forEach(input => input.addEventListener('input', calculateTotal));
-    calculateTotal();
+    calculateTotal(); // Run once on page load
   </script>
 </body>
 </html>
