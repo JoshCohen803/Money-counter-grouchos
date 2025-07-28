@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Groucho’s Money Calculator</title>
+  <title>Groucho's Money Calculator</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -85,7 +85,7 @@
       <img src="grouchosdelilogo.png" alt="Groucho's Deli Logo">
     </div>
     <h2>Money Calculator</h2>
-    <form id="moneyForm">
+    <form id="moneyForm" autocomplete="off">
       <label>Pennies (1¢): <input type="number" id="pennies" min="0" value="0"></label>
       <label>Nickels (5¢): <input type="number" id="nickels" min="0" value="0"></label>
       <label>Dimes (10¢): <input type="number" id="dimes" min="0" value="0"></label>
@@ -102,8 +102,7 @@
       <button type="button" onclick="resetForm()">Reset All</button>
     </div>
     <div class="credit">
-      Credit:
-      Groucho’s Deli of Blythewood
+      Credit: Groucho's Deli of Blythewood
     </div>
   </div>
 
