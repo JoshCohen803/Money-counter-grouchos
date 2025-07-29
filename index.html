@@ -77,8 +77,8 @@
       margin-top: 30px;
     }
   </style>
-  <link rel="icon" href="/favicon.png?v=2" type="image/png">
-  <link rel="apple-touch-icon" href="/favicon.png?v=2" />
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/favicon.png" />
 </head>
 <body>
   <div class="container">
@@ -87,16 +87,16 @@
     </div>
     <h2>Money Calculator</h2>
     <form id="moneyForm" autocomplete="off">
-      <label>Pennies (1¢): <input type="number" id="pennies" min="0" value="0"></label>
-      <label>Nickels (5¢): <input type="number" id="nickels" min="0" value="0"></label>
-      <label>Dimes (10¢): <input type="number" id="dimes" min="0" value="0"></label>
-      <label>Quarters (25¢): <input type="number" id="quarters" min="0" value="0"></label>
-      <label>$1 Bills: <input type="number" id="bill1" min="0" value="0"></label>
-      <label>$5 Bills: <input type="number" id="bill5" min="0" value="0"></label>
-      <label>$10 Bills: <input type="number" id="bill10" min="0" value="0"></label>
-      <label>$20 Bills: <input type="number" id="bill20" min="0" value="0"></label>
-      <label>$50 Bills: <input type="number" id="bill50" min="0" value="0"></label>
-      <label>$100 Bills: <input type="number" id="bill100" min="0" value="0"></label>
+      <label>Pennies (1¢): <input type="number" id="pennies" min="0" placeholder="0"></label>
+      <label>Nickels (5¢): <input type="number" id="nickels" min="0" placeholder="0"></label>
+      <label>Dimes (10¢): <input type="number" id="dimes" min="0" placeholder="0"></label>
+      <label>Quarters (25¢): <input type="number" id="quarters" min="0" placeholder="0"></label>
+      <label>$1 Bills: <input type="number" id="bill1" min="0" placeholder="0"></label>
+      <label>$5 Bills: <input type="number" id="bill5" min="0" placeholder="0"></label>
+      <label>$10 Bills: <input type="number" id="bill10" min="0" placeholder="0"></label>
+      <label>$20 Bills: <input type="number" id="bill20" min="0" placeholder="0"></label>
+      <label>$50 Bills: <input type="number" id="bill50" min="0" placeholder="0"></label>
+      <label>$100 Bills: <input type="number" id="bill100" min="0" placeholder="0"></label>
     </form>
     <div id="total">Total: $0.00</div>
     <div class="buttons">
@@ -106,55 +106,69 @@
       Credit: Groucho's Deli of Blythewood
     </div>
   </div>
+
   <script>
-  const inputs = document.querySelectorAll('input[type="number"]');
+    const fields = [
+      'pennies', 'nickels', 'dimes', 'quarters',
+      'bill1', 'bill5', 'bill10', 'bill20', 'bill50', 'bill100'
+    ];
 
-  function calculateTotal() {
-    const get = id => parseFloat(document.getElementById(id).value) || 0;
-    let total = 0;
-    total += get('pennies') * 0.01;
-    total += get('nickels') * 0.05;
-    total += get('dimes') * 0.10;
-    total += get('quarters') * 0.25;
-    total += get('bill1') * 1.00;
-    total += get('bill5') * 5.00;
-    total += get('bill10') * 10.00;
-    total += get('bill20') * 20.00;
-    total += get('bill50') * 50.00;
-    total += get('bill100') * 100.00;
-    document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
-  }
+    const inputs = fields.map(id => document.getElementById(id));
 
-  function saveInputs() {
-    inputs.forEach(input => {
-      localStorage.setItem(input.id, input.value);
-    });
-  }
+    function calculateTotal() {
+      let total = 0;
+      fields.forEach(id => {
+        const value = parseFloat(document.getElementById(id).value) || 0;
+        switch(id) {
+          case 'pennies': total += value * 0.01; break;
+          case 'nickels': total += value * 0.05; break;
+          case 'dimes': total += value * 0.10; break;
+          case 'quarters': total += value * 0.25; break;
+          case 'bill1': total += value * 1.00; break;
+          case 'bill5': total += value * 5.00; break;
+          case 'bill10': total += value * 10.00; break;
+          case 'bill20': total += value * 20.00; break;
+          case 'bill50': total += value * 50.00; break;
+          case 'bill100': total += value * 100.00; break;
+        }
+      });
+      document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+    }
 
-  function loadInputs() {
-    inputs.forEach(input => {
-      const savedValue = localStorage.getItem(input.id);
-      if (savedValue !== null) {
-        input.value = savedValue;
-      }
-    });
-  }
+    function saveData() {
+      const data = {};
+      fields.forEach(id => {
+        const val = document.getElementById(id).value;
+        if (val) data[id] = val;
+      });
+      localStorage.setItem('moneyData', JSON.stringify(data));
+    }
 
-  function resetForm() {
-    document.getElementById('moneyForm').reset();
-    localStorage.clear();
-    calculateTotal();
-  }
-
-  inputs.forEach(input => {
-    input.addEventListener('input', () => {
+    function loadData() {
+      const saved = JSON.parse(localStorage.getItem('moneyData') || '{}');
+      fields.forEach(id => {
+        if (saved[id]) {
+          document.getElementById(id).value = saved[id];
+        }
+      });
       calculateTotal();
-      saveInputs();
-    });
-  });
+    }
 
-  loadInputs();     // Load saved values
-  calculateTotal(); // Calculate total on page load
+    function resetForm() {
+      document.getElementById('moneyForm').reset();
+      localStorage.removeItem('moneyData');
+      calculateTotal();
+    }
+
+    // Add event listeners
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        calculateTotal();
+        saveData();
+      });
+    });
+
+    loadData(); // On page load
   </script>
 </body>
 </html>
