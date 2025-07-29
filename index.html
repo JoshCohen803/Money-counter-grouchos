@@ -106,33 +106,55 @@
       Credit: Groucho's Deli of Blythewood
     </div>
   </div>
-
   <script>
-    const inputs = document.querySelectorAll('input[type="number"]');
+  const inputs = document.querySelectorAll('input[type="number"]');
 
-    function calculateTotal() {
-      const get = id => parseFloat(document.getElementById(id).value) || 0;
-      let total = 0;
-      total += get('pennies') * 0.01;
-      total += get('nickels') * 0.05;
-      total += get('dimes') * 0.10;
-      total += get('quarters') * 0.25;
-      total += get('bill1') * 1.00;
-      total += get('bill5') * 5.00;
-      total += get('bill10') * 10.00;
-      total += get('bill20') * 20.00;
-      total += get('bill50') * 50.00;
-      total += get('bill100') * 100.00;
-      document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
-    }
+  function calculateTotal() {
+    const get = id => parseFloat(document.getElementById(id).value) || 0;
+    let total = 0;
+    total += get('pennies') * 0.01;
+    total += get('nickels') * 0.05;
+    total += get('dimes') * 0.10;
+    total += get('quarters') * 0.25;
+    total += get('bill1') * 1.00;
+    total += get('bill5') * 5.00;
+    total += get('bill10') * 10.00;
+    total += get('bill20') * 20.00;
+    total += get('bill50') * 50.00;
+    total += get('bill100') * 100.00;
+    document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+  }
 
-    function resetForm() {
-      document.getElementById('moneyForm').reset();
+  function saveInputs() {
+    inputs.forEach(input => {
+      localStorage.setItem(input.id, input.value);
+    });
+  }
+
+  function loadInputs() {
+    inputs.forEach(input => {
+      const savedValue = localStorage.getItem(input.id);
+      if (savedValue !== null) {
+        input.value = savedValue;
+      }
+    });
+  }
+
+  function resetForm() {
+    document.getElementById('moneyForm').reset();
+    localStorage.clear();
+    calculateTotal();
+  }
+
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
       calculateTotal();
-    }
+      saveInputs();
+    });
+  });
 
-    inputs.forEach(input => input.addEventListener('input', calculateTotal));
-    calculateTotal(); // Run once on page load
+  loadInputs();     // Load saved values
+  calculateTotal(); // Calculate total on page load
   </script>
 </body>
 </html>
