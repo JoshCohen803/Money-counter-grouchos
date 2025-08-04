@@ -87,16 +87,16 @@
     </div>
     <h2>Money Calculator</h2>
     <form id="moneyForm" autocomplete="off">
-      <label>Pennies (1¢): <input type="number" id="pennies" min="0" placeholder="0"></label>
-      <label>Nickels (5¢): <input type="number" id="nickels" min="0" placeholder="0"></label>
-      <label>Dimes (10¢): <input type="number" id="dimes" min="0" placeholder="0"></label>
-      <label>Quarters (25¢): <input type="number" id="quarters" min="0" placeholder="0"></label>
-      <label>$1 Bills: <input type="number" id="bill1" min="0" placeholder="0"></label>
-      <label>$5 Bills: <input type="number" id="bill5" min="0" placeholder="0"></label>
-      <label>$10 Bills: <input type="number" id="bill10" min="0" placeholder="0"></label>
-      <label>$20 Bills: <input type="number" id="bill20" min="0" placeholder="0"></label>
-      <label>$50 Bills: <input type="number" id="bill50" min="0" placeholder="0"></label>
-      <label>$100 Bills: <input type="number" id="bill100" min="0" placeholder="0"></label>
+      <label>Pennies (1¢): <input type="number" id="pennies" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
+      <label>Nickels (5¢): <input type="number" id="nickels" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
+      <label>Dimes (10¢): <input type="number" id="dimes" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
+      <label>Quarters (25¢): <input type="number" id="quarters" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
+      <label>$1 Bills: <input type="number" id="bill1" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
+      <label>$5 Bills: <input type="number" id="bill5" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
+      <label>$10 Bills: <input type="number" id="bill10" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
+      <label>$20 Bills: <input type="number" id="bill20" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
+      <label>$50 Bills: <input type="number" id="bill50" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
+      <label>$100 Bills: <input type="number" id="bill100" min="0" placeholder="0" inputmode="numeric" pattern="[0-9]*"></label>
     </form>
     <div id="total">Total: $0.00</div>
     <div class="buttons">
